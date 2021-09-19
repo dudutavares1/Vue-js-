@@ -1,67 +1,33 @@
 
-
-
 <template>
-  <div>
+  <div class="corpo">
     <h1 class="centralizado">{{ titulo }}</h1>
-
     <ul class="lista-fotos">
       <li class="lista-fotos-item" v-for="foto in fotos">
-        <div class="painel">
-          <h2 class="painel-titulo">{{ foto.titulo }}</h2>
-          <div class="painel-corpo">
-            <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo" />
-          </div>
-          <!-- fim painel-corpo -->
-        </div>
-        <!-- fim painel -->
+        <meu-painel :titulo="foto.titulo">
+          <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo" />
+        </meu-painel>
       </li>
     </ul>
   </div>
 </template>
 
+
+
+
 <script>
 export default {
-  data() {
-    return {
-      titulo: "Alurapic",
-
-      fotos: {
-        url: "https://www.doglife.com.br/site/assets/images/cao.png",
-        titulo: "Golden",
-      },
-    };
-  },
-  created() {
-    this.$http
-      .get("http://localhost:3000/v1/fotos")
-      .then((res) => res.json())
-      .then((fotos) => (this.fotos = fotos));
-  },
+  props: ["titulo"],
 };
+
+
+
+
+
 </script>
 
+
 <style>
-.centralizado {
-  text-align: center;
-}
-
-.corpo {
-  font-family: Helvetica, sans-serif;
-  margin: 0 auto;
-  width: 96%;
-}
-
-.lista-fotos {
-  list-style: none;
-}
-
-.lista-fotos .lista-fotos-item {
-  display: inline-block;
-}
-
-/* estilo do painel */
-
 .painel {
   padding: 0 auto;
   border: solid 2px grey;
@@ -83,7 +49,8 @@ export default {
   text-transform: uppercase;
 }
 
-.imagem-responsiva {
-  width: 100%;
+
+*{
+  box-shadow: 5px 5px 5px;
 }
 </style>
