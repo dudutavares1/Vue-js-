@@ -1,41 +1,42 @@
 <template>
+  <div class="corpo">
+    <h1 class="centralizado">{{ titulo }}</h1>
 
-  <div>
-    <h1>{{ titulo }}</h1>
-
-    <ul>
-
-      <li v-for="foto of fotos">
-        <img :src="foto.url" :alt="foto.titulo">
+    <ul class="lista-fotos">
+      <li class="lista-fotos-itens" v-for="foto of fotos">
+        <img :src="foto.url" :alt="foto.titulo" />
       </li>
-
     </ul>
-
   </div>
 </template>
 
 <script>
-
 export default {
-
   data() {
     return {
-      titulo: 'Alurapic',
-      fotos: [
-        {
-          url: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwV4kVzT5McBdGSgqlVeRzubrNH_mOrrkKseDOGFURq20HmsrelEfMU7It',
-          titulo: 'Cachorro'
-        },
-        {
-          url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOhmlmzV4-Sifx5BIc2SXeA-1CtZJf8jb8V_vPZyKbXIQJKU-rkxGO6OM',
-          titulo: 'Gato'
-        }
-      ]
+      titulo: "Alurapic",
 
-    }
-  }
-}
+      fotos: {
+        url: "https://www.doglife.com.br/site/assets/images/cao.png",
+        titulo: "Golden",
+      },
+    };
+  },
+  created() {
+    this.$http
+      .get("http://localhost:3000/v1/fotos")
+      .then((res) => res.json())
+      .then((fotos) => (this.fotos = fotos));
+  },
+};
 </script>
 
 <style>
+.corpo {
+  font-family: Helvetica, sans-serif;
+  widows: 96%;
+  margin: 0 auto;
+
+}
+
 </style>
